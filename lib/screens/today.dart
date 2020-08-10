@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:today/models/task.dart';
+import 'package:today/widgets/task_register.dart';
 import 'package:today/utils/constants.dart';
 import 'package:today/widgets/task_list.dart';
 import 'package:today/widgets/title_section.dart';
@@ -24,6 +26,8 @@ class TodayScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _date = "Not set";
+    String _time = "Not set";
     return Scaffold(
       appBar: AppBar(
         leading: Icon(
@@ -66,18 +70,10 @@ class TodayScreen extends StatelessWidget {
             barrierColor: Colors.black.withOpacity(0.5),
             transitionDuration: Duration(milliseconds: 300),
             context: context,
-            pageBuilder: (_, __, ___) {
+            pageBuilder: (context, __, ___) {
               return Align(
                 alignment: Alignment.center,
-                child: Container(
-                  height: 600,
-                  child: SizedBox.expand(child: FlutterLogo()),
-                  margin: EdgeInsets.only(bottom: 50, left: 12, right: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                ),
+                child: TaskRegister(),
               );
             },
             transitionBuilder: (_, anim, __, child) {
@@ -108,4 +104,4 @@ class TodayScreen extends StatelessWidget {
 //fontWeight: FontWeight.bold,
 //color: Color(0xff303136),
 //),
-//),
+//
