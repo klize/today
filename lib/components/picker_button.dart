@@ -17,12 +17,19 @@ class PickerButton extends StatelessWidget {
       ),
       child: Container(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             leadingIcon,
-            Text(
-              inside_text,
-              style: TextStyle(fontFamily: "GamjaFlower", fontSize: 20),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Text(
+                inside_text,
+                style: TextStyle(
+                  fontFamily: "GamjaFlower",
+                  fontSize: 20,
+                ),
+              ),
             ),
           ],
         ),

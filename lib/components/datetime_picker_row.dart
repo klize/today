@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:today/components/picker_button.dart';
 
 class DateTimePickerRow extends StatefulWidget {
@@ -19,28 +20,62 @@ class _DateTimePickerRowState extends State<DateTimePickerRow> {
     return Row(
       children: [
         Expanded(
-          flex: 3,
+          flex: 4,
           child: PickerButton(
             leadingIcon: Icon(
               Icons.date_range,
               size: 20,
             ),
             inside_text: _date_str,
-            onPressed: () {},
+            onPressed: () {
+              DatePicker.showDatePicker(
+                context,
+                theme: DatePickerTheme(
+                  containerHeight: 210.0,
+                ),
+                showTitleActions: true,
+                minTime: DateTime(2000, 1, 1),
+                maxTime: DateTime(2022, 12, 31),
+                onConfirm: (date) {
+                  print('confirm $date');
+                  _date_str = '${date.year}.${date.month}.${date.day}';
+                  setState(() {});
+                },
+                currentTime: DateTime.now(),
+                locale: LocaleType.ko,
+              );
+            },
           ),
         ),
         SizedBox(
           width: 10,
         ),
         Expanded(
-            flex: 3,
+            flex: 4,
             child: PickerButton(
               leadingIcon: Icon(
                 Icons.timer_rounded,
                 size: 20,
               ),
               inside_text: _time_str,
-              onPressed: () {},
+              onPressed: () {
+                DatePicker.showTimePicker(
+                  context,
+                  theme: DatePickerTheme(
+                    containerHeight: 210.0,
+                  ),
+                  showTitleActions: true,
+                  showSecondsColumn: false,
+                  onConfirm: (time) {
+                    print('confirm $time');
+                    _time_str = '${time.hour} 시 ${time.minute} 분';
+                    setState(() {});
+                  },
+                  currentTime: DateTime.now(),
+                  locale: LocaleType.ko,
+                );
+                setState(() {});
+              },
             )),
         SizedBox(
           width: 10,
