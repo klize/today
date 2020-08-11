@@ -6,7 +6,8 @@ class PickerButton extends StatelessWidget {
   final Function onPressed;
   final String inside_text;
 
-  PickerButton({this.leadingIcon, this.onPressed, this.inside_text});
+  PickerButton({Key key, this.leadingIcon, this.onPressed, this.inside_text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class PickerButton extends StatelessWidget {
                 inside_text,
                 style: TextStyle(
                   fontFamily: "GamjaFlower",
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
             ),

@@ -4,6 +4,8 @@ import 'package:today/components/picker_button.dart';
 
 class DateTimePickerRow extends StatefulWidget {
   final String tail;
+  GlobalKey dateButtonKey = GlobalKey();
+  GlobalKey timeButtonKey = GlobalKey();
 
   DateTimePickerRow({this.tail});
 
@@ -13,7 +15,12 @@ class DateTimePickerRow extends StatefulWidget {
 
 class _DateTimePickerRowState extends State<DateTimePickerRow> {
   String _date_str = "날짜";
+  DateTime _date;
   String _time_str = "시간";
+  DateTime _time;
+
+  String makeDateStr(DateTime date) => '${date.year}.${date.month}.${date.day}';
+  String makeTimeStr(DateTime time) => '${time.hour} 시 ${time.minute} 분';
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +29,7 @@ class _DateTimePickerRowState extends State<DateTimePickerRow> {
         Expanded(
           flex: 4,
           child: PickerButton(
+            key: widget.dateButtonKey,
             leadingIcon: Icon(
               Icons.date_range,
               size: 20,
@@ -38,7 +46,8 @@ class _DateTimePickerRowState extends State<DateTimePickerRow> {
                 maxTime: DateTime(2022, 12, 31),
                 onConfirm: (date) {
                   print('confirm $date');
-                  _date_str = '${date.year}.${date.month}.${date.day}';
+                  _date = date;
+                  _date_str = makeDateStr(date);
                   setState(() {});
                 },
                 currentTime: DateTime.now(),
@@ -53,6 +62,7 @@ class _DateTimePickerRowState extends State<DateTimePickerRow> {
         Expanded(
             flex: 4,
             child: PickerButton(
+              key: widget.timeButtonKey,
               leadingIcon: Icon(
                 Icons.timer_rounded,
                 size: 20,
@@ -68,7 +78,8 @@ class _DateTimePickerRowState extends State<DateTimePickerRow> {
                   showSecondsColumn: false,
                   onConfirm: (time) {
                     print('confirm $time');
-                    _time_str = '${time.hour} 시 ${time.minute} 분';
+                    _time = time;
+                    _time_str = makeTimeStr(time);
                     setState(() {});
                   },
                   currentTime: DateTime.now(),

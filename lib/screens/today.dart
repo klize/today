@@ -73,7 +73,11 @@ class TodayScreen extends StatelessWidget {
             pageBuilder: (context, __, ___) {
               return Align(
                 alignment: Alignment.center,
-                child: TaskRegister(),
+                child: SafeArea(
+                  child: Container(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: TaskRegister()),
+                ),
               );
             },
             transitionBuilder: (_, anim, __, child) {

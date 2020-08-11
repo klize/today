@@ -16,7 +16,7 @@ class _TaskRegisterState extends State<TaskRegister> {
       elevation: 0,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        height: 600,
+        height: 350,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -46,6 +46,26 @@ class _TaskRegisterState extends State<TaskRegister> {
             ),
             DateTimePickerRow(
               tail: "끝",
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 20),
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                color: Colors.pink[100],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Text(
+                  '등록하기',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontFamily: 'GamjaFlower',
+                    color: Colors.pink[600],
+                  ),
+                ),
+              ),
             ),
           ],
         ),
