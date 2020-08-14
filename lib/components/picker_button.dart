@@ -4,10 +4,13 @@ import 'package:today/utils/constants.dart';
 class PickerButton extends StatelessWidget {
   final Icon leadingIcon;
   final Function onPressed;
-  final String inside_text;
+  final String innerText;
 
-  PickerButton({Key key, this.leadingIcon, this.onPressed, this.inside_text})
-      : super(key: key);
+  PickerButton({
+    this.leadingIcon,
+    this.onPressed,
+    this.innerText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class PickerButton extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                inside_text,
+                innerText,
                 style: TextStyle(
                   fontFamily: "GamjaFlower",
                   fontSize: 18,

@@ -12,17 +12,7 @@ class TodayScreen extends StatelessWidget {
   static final String screenID = "today_screen";
 
   //TODO: Task, TaskTile, TaskList
-  final List<Task> tasks = [
-    Task(content: "히히히", start: DateTime.now(), end: DateTime.now()),
-    Task(content: "task 2"),
-    Task(content: "task 3"),
-    Task(content: "우유 팔기"),
-    Task(content: "task 2"),
-    Task(content: "task 3"),
-    Task(content: "우유 다시 사기"),
-    Task(content: "task 2"),
-    Task(content: "task 3"),
-  ];
+  final List<Task> tasks = [];
 
   @override
   Widget build(BuildContext context) {
