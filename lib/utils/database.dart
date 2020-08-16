@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:today/models/task.dart';
 
-final String _tableName = "Task";
+final String _tableName = "Tasks";
 
 class DataBaseHelper with ChangeNotifier {
   DataBaseHelper._();
@@ -28,6 +28,7 @@ class DataBaseHelper with ChangeNotifier {
 
   Future<Database> initDB() async {
     String path = join(await getDatabasesPath(), 'Today.db');
+    print(path);
 
     Database db = await openDatabase(
       path,
@@ -37,8 +38,8 @@ class DataBaseHelper with ChangeNotifier {
             CREATE TABLE $_tableName(
             id INTEGER PRIMARY KEY, 
             content TEXT,
-            start TEXT,
-            end TEXT,
+            start INTEGER,
+            end INTEGER
             )
             ''');
       },
@@ -48,9 +49,9 @@ class DataBaseHelper with ChangeNotifier {
     return db;
   }
 
-  Future<void> getTasks() async {
+  Future<List<Map<String, dynamic>>> getTasks() async {
     final List<Map<String, dynamic>> maps = await _database?.query(_tableName);
-    print(maps);
+    return maps;
 //    return List.generate(maps.length, (i) {
 //      return Member(
 //        id: maps[i]['id'],

@@ -3,6 +3,8 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:today/components/datetime_picker_row.dart';
 import 'package:today/components/picker_button.dart';
+import 'package:today/models/task.dart';
+import 'package:today/models/task_data.dart';
 import 'package:today/utils/constants.dart';
 
 class TaskRegister extends StatefulWidget {
@@ -18,6 +20,8 @@ class _TaskRegisterState extends State<TaskRegister> {
 
   String _dateStr = "날짜";
   String _timeStr = "시간";
+
+  String _content;
 
   String makeDateStr(DateTime date) {
     String _str = "날짜";
@@ -49,6 +53,10 @@ class _TaskRegisterState extends State<TaskRegister> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
+              onChanged: (newContent) {
+                _content = newContent;
+                setState(() {});
+              },
               keyboardType: TextInputType.multiline,
               style: TextStyle(
                 fontFamily: "GamjaFlower",
@@ -160,6 +168,35 @@ class _TaskRegisterState extends State<TaskRegister> {
               padding: EdgeInsets.only(top: 20),
               child: RaisedButton(
                 onPressed: () {
+                  print('start $_startDate $_startTime');
+                  DateTime start = DateTime(
+                    _startDate.year,
+                    _startDate.month,
+                    _startDate.day,
+                    _startTime.hour,
+                    _startTime.minute,
+                    _startTime.second,
+                  );
+
+                  print('end $_endDate $_endTime');
+                  DateTime end = DateTime(
+                    _endDate.year,
+                    _endDate.month,
+                    _endDate.day,
+                    _endTime.hour,
+                    _endTime.minute,
+                    _endTime.second,
+                  );
+
+                  print('content $_content');
+                  final Task newTask = Task(
+                    content: _content,
+                    start: start,
+                    end: end,
+                  );
+                  print(newTask);
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(newTask);
                   Navigator.pop(context);
                 },
                 color: Colors.pink[100],
