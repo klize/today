@@ -4,24 +4,24 @@ import 'package:today/components/picker_button.dart';
 
 class DateTimePickerRow extends StatefulWidget {
   final String tail;
-  GlobalKey dateButtonKey = GlobalKey();
-  GlobalKey timeButtonKey = GlobalKey();
+  final dateStr;
+  final timeStr;
 
-  DateTimePickerRow({this.tail});
+  final Function onDatePressed;
+  final Function onTimePressed;
+
+  DateTimePickerRow(
+      {this.dateStr = "날짜",
+      this.timeStr = "시간",
+      this.tail,
+      this.onDatePressed,
+      this.onTimePressed});
 
   @override
   _DateTimePickerRowState createState() => _DateTimePickerRowState();
 }
 
 class _DateTimePickerRowState extends State<DateTimePickerRow> {
-  String _date_str = "날짜";
-  DateTime _date;
-  String _time_str = "시간";
-  DateTime _time;
-
-  String makeDateStr(DateTime date) => '${date.year}.${date.month}.${date.day}';
-  String makeTimeStr(DateTime time) => '${time.hour} 시 ${time.minute} 분';
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -29,31 +29,12 @@ class _DateTimePickerRowState extends State<DateTimePickerRow> {
         Expanded(
           flex: 4,
           child: PickerButton(
-            key: widget.dateButtonKey,
             leadingIcon: Icon(
               Icons.date_range,
               size: 20,
             ),
-            inside_text: _date_str,
-            onPressed: () {
-              DatePicker.showDatePicker(
-                context,
-                theme: DatePickerTheme(
-                  containerHeight: 210.0,
-                ),
-                showTitleActions: true,
-                minTime: DateTime(2000, 1, 1),
-                maxTime: DateTime(2022, 12, 31),
-                onConfirm: (date) {
-                  print('confirm $date');
-                  _date = date;
-                  _date_str = makeDateStr(date);
-                  setState(() {});
-                },
-                currentTime: DateTime.now(),
-                locale: LocaleType.ko,
-              );
-            },
+            innerText: widget.dateStr,
+            onPressed: widget.onDatePressed,
           ),
         ),
         SizedBox(
@@ -62,31 +43,12 @@ class _DateTimePickerRowState extends State<DateTimePickerRow> {
         Expanded(
             flex: 4,
             child: PickerButton(
-              key: widget.timeButtonKey,
               leadingIcon: Icon(
                 Icons.timer_rounded,
                 size: 20,
               ),
-              inside_text: _time_str,
-              onPressed: () {
-                DatePicker.showTimePicker(
-                  context,
-                  theme: DatePickerTheme(
-                    containerHeight: 210.0,
-                  ),
-                  showTitleActions: true,
-                  showSecondsColumn: false,
-                  onConfirm: (time) {
-                    print('confirm $time');
-                    _time = time;
-                    _time_str = makeTimeStr(time);
-                    setState(() {});
-                  },
-                  currentTime: DateTime.now(),
-                  locale: LocaleType.ko,
-                );
-                setState(() {});
-              },
+              innerText: widget.timeStr,
+              onPressed: widget.onTimePressed,
             )),
         SizedBox(
           width: 10,

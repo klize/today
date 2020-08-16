@@ -11,19 +11,6 @@ import 'package:today/widgets/title_section.dart';
 class TodayScreen extends StatelessWidget {
   static final String screenID = "today_screen";
 
-  //TODO: Task, TaskTile, TaskList
-  final List<Task> tasks = [
-    Task(content: "히히히", start: DateTime.now(), end: DateTime.now()),
-    Task(content: "task 2"),
-    Task(content: "task 3"),
-    Task(content: "우유 팔기"),
-    Task(content: "task 2"),
-    Task(content: "task 3"),
-    Task(content: "우유 다시 사기"),
-    Task(content: "task 2"),
-    Task(content: "task 3"),
-  ];
-
   @override
   Widget build(BuildContext context) {
     String _date = "Not set";
@@ -55,9 +42,7 @@ class TodayScreen extends StatelessWidget {
             flex: 3,
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: TaskList(
-                tasks: tasks,
-              ),
+              child: TaskList(),
             ),
           ),
         ],
