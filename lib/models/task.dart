@@ -22,6 +22,7 @@ class Task {
       Content: $content
       Start: $start
       End: $end
+      Done: $isDone
     """;
   }
 
@@ -31,7 +32,16 @@ class Task {
       'content': content,
       'start': start.millisecondsSinceEpoch,
       'end': end.millisecondsSinceEpoch,
+      'done': boolToInt(isDone),
     };
+  }
+
+  static int boolToInt(bool boolValue) {
+    return boolValue ? 1 : 0;
+  }
+
+  static bool intToBool(int intValue) {
+    return intValue == 1 ? true : false;
   }
 
   void toggleDone() {

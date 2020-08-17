@@ -16,6 +16,7 @@ class TodayScreen extends StatelessWidget {
     String _date = "Not set";
     String _time = "Not set";
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Icon(
           Icons.list,

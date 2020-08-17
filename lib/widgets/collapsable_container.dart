@@ -59,7 +59,9 @@ class _CollapsableContainerState extends State<CollapsableContainer>
     return SizeTransition(
       axisAlignment: 1.0,
       sizeFactor: _animation,
-      child: widget.child,
+      child: Container(
+        child: widget.child,
+      ),
     );
   }
 }
