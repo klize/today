@@ -39,7 +39,8 @@ class DataBaseHelper with ChangeNotifier {
             id INTEGER PRIMARY KEY, 
             content TEXT,
             start INTEGER,
-            end INTEGER
+            end INTEGER,
+            done INTEGER
             )
             ''');
       },
@@ -59,6 +60,21 @@ class DataBaseHelper with ChangeNotifier {
 //        species: maps[i]['species'],
 //      );
 //    });
+  }
+
+  Future<List<Map<String, dynamic>>> searchTask(
+      int year, int month, int day) async {
+    DateTime target = DateTime(year, month, day);
+    DateTime nextDay = target.add(
+      Duration(days: 1),
+    );
+    print(target);
+    print(nextDay);
+    int t = target.millisecondsSinceEpoch;
+    int n = nextDay.millisecondsSinceEpoch;
+    return await _database?.query(_tableName,
+        where: '(start BETWEEN ? and ?) OR (end BETWEEN ? and ?)',
+        whereArgs: [t, n, t, n]);
   }
 
   Future<void> insertTask(Task task) async {

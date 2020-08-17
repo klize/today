@@ -35,7 +35,7 @@ class _TitleSectionState extends State<TitleSection> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: 10),
                 child: Text(
                   "Today",
                   textAlign: TextAlign.start,

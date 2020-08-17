@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:today/models/task_data.dart';
 
 class Calendar extends StatefulWidget {
   @override
@@ -25,6 +27,12 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return TableCalendar(
       calendarController: _calendarController,
+      availableCalendarFormats: const {
+        CalendarFormat.month: 'Month',
+      },
+      onDaySelected: (dateTime, items) {
+        Provider.of<TaskData>(context, listen: false).searchData(dateTime);
+      },
     );
   }
 }

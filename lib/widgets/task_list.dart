@@ -16,9 +16,14 @@ class TaskList extends StatelessWidget {
           physics: ClampingScrollPhysics(),
           itemCount: taskData.itemCount,
           itemBuilder: (context, index) {
+            final task = tasks[index];
             return TaskTile(
-              taskContent: tasks[index].content,
-              term: tasks[index].getTerm(),
+              taskContent: task.content,
+              term: task.getTerm(),
+              isDone: task.isDone,
+              onTap: () {
+                taskData.toggleDone(task);
+              },
             );
           },
         );
