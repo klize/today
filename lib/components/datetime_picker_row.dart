@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:today/components/picker_button.dart';
+import 'package:today/utils/constants.dart';
 
 class DateTimePickerRow extends StatefulWidget {
   final String tail;
@@ -32,6 +33,7 @@ class _DateTimePickerRowState extends State<DateTimePickerRow> {
             leadingIcon: Icon(
               Icons.date_range,
               size: 20,
+              color: kNewTaskButtonCalendarIconColor,
             ),
             innerText: widget.dateStr,
             onPressed: widget.onDatePressed,
@@ -46,6 +48,7 @@ class _DateTimePickerRowState extends State<DateTimePickerRow> {
               leadingIcon: Icon(
                 Icons.timer_rounded,
                 size: 20,
+                color: kNewTaskButtonClockIconColor,
               ),
               innerText: widget.timeStr,
               onPressed: widget.onTimePressed,

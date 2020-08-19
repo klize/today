@@ -10,7 +10,7 @@ class TaskData with ChangeNotifier {
   TaskData(this._items, {this.helper}) {
     if (this.helper != null) {
       print("helper $helper");
-      loadData();
+      searchData(DateTime.now());
     }
   }
 

@@ -199,7 +199,7 @@ class _TaskRegisterState extends State<TaskRegister> {
                       .addTask(newTask);
                   Navigator.pop(context);
                 },
-                color: Colors.pink[100],
+                color: kNewTaskRegisterButtonColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
@@ -208,7 +208,7 @@ class _TaskRegisterState extends State<TaskRegister> {
                   style: TextStyle(
                     fontSize: 30,
                     fontFamily: 'GamjaFlower',
-                    color: Colors.pink[600],
+                    color: Colors.white,
                   ),
                 ),
               ),

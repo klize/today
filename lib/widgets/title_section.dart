@@ -37,12 +37,11 @@ class _TitleSectionState extends State<TitleSection> {
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  "Today",
+                  "선화의 하루",
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    fontSize: 80,
+                    fontSize: 40,
                     fontFamily: "GamjaFlower",
-                    fontWeight: FontWeight.bold,
                     color: kScreenTitleColor,
                   ),
                 ),
