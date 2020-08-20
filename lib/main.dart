@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:today/screens/today.dart';
 import 'package:today/utils/database.dart';
@@ -30,6 +32,15 @@ class Today extends StatelessWidget {
         title: _title,
         initialRoute: TodayScreen.screenID,
         routes: routes,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          // if it's a RTL language
+        ],
+        supportedLocales: [
+          const Locale('ko', 'KR'),
+          // include country code too
+        ],
       ),
     );
   }

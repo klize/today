@@ -124,43 +124,79 @@ class _TaskRegisterState extends State<TaskRegister> {
             ),
             DateTimePickerRow(
               dateStr: makeDateStr(_endDate),
-              onDatePressed: () {
-                DatePicker.showDatePicker(
-                  context,
-                  theme: DatePickerTheme(
-                    containerHeight: 210.0,
-                  ),
-                  showTitleActions: true,
-                  minTime: DateTime(2000, 1, 1),
-                  maxTime: DateTime(2022, 12, 31),
-                  onConfirm: (date) {
-                    print('confirm $date');
-                    setState(() {
-                      _endDate = date;
-                    });
+              onDatePressed: () async {
+                DateTime date = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1994, 02, 13),
+                  lastDate: DateTime(2100, 5, 16),
+                  helpText: "",
+                  cancelText: "아닌뒈",
+                  confirmText: "꾸래!",
+                  builder: (BuildContext context, Widget child) {
+                    return Theme(
+                      data: kDatePickerThemeData,
+                      child: child,
+                    );
                   },
-                  currentTime: DateTime.now(),
-                  locale: LocaleType.ko,
                 );
+                setState(() {
+                  if (date != null) {
+                    _endDate = date;
+                  }
+                });
+//                DatePicker.showDatePicker(
+//                  context,
+//                  theme: DatePickerTheme(
+//                    containerHeight: 210.0,
+//                  ),
+//                  showTitleActions: true,
+//                  minTime: DateTime(2000, 1, 1),
+//                  maxTime: DateTime(2022, 12, 31),
+//                  onConfirm: (date) {
+//                    print('confirm $date');
+//                    setState(() {
+//                      _endDate = date;
+//                    });
+//                  },
+//                  currentTime: DateTime.now(),
+//                  locale: LocaleType.ko,
+//                );
               },
               timeStr: makeTimeStr(_endTime),
-              onTimePressed: () {
-                DatePicker.showTimePicker(
-                  context,
-                  theme: DatePickerTheme(
-                    containerHeight: 210.0,
-                  ),
-                  showTitleActions: true,
-                  showSecondsColumn: false,
-                  onConfirm: (time) {
-                    print('confirm $time');
-                    setState(() {
-                      _endTime = time;
-                    });
+              onTimePressed: () async {
+                await showTimePicker(
+                  context: context,
+                  confirmText: "꾸래!",
+                  cancelText: "아닌뒈",
+                  initialTime: TimeOfDay.now(),
+                  builder: (BuildContext context, Widget child) {
+                    return Theme(
+                      data: kTimePickerThemeData,
+                      child: child,
+                    );
+//                    return Directionality(
+//                      textDirection: TextDirection.rtl,
+//                      child: child,
+//                    );
                   },
-                  currentTime: DateTime.now(),
-                  locale: LocaleType.ko,
                 );
+//                DatePicker.showTimePicker(
+//                  context,
+//                  theme: DatePickerTheme(
+//                    containerHeight: 210.0,
+//                  ),
+//                  showTitleActions: true,
+//                  showSecondsColumn: false,
+//                  onConfirm: (time) {
+//                    print('confirm $time');
+//                    setState(() {
+//                      _endTime = time;
+//                    });
+//                  },
+//                  currentTime: DateTime.now(),
+//                  locale: LocaleType.ko,
+//                );
               },
               tail: "끝",
             ),
