@@ -14,9 +14,9 @@ class TaskRegister extends StatefulWidget {
 
 class _TaskRegisterState extends State<TaskRegister> {
   DateTime _startDate;
-  DateTime _startTime;
+  TimeOfDay _startTime;
   DateTime _endDate;
-  DateTime _endTime;
+  TimeOfDay _endTime;
 
   String _dateStr = "날짜";
   String _timeStr = "시간";
@@ -32,13 +32,61 @@ class _TaskRegisterState extends State<TaskRegister> {
     return _str;
   }
 
-  String makeTimeStr(DateTime time) {
+  String makeTimeStr(TimeOfDay time) {
     String _str = "시간";
     if (time != null) {
       _str = '${time.hour} 시 ${time.minute} 분';
     }
 
     return _str;
+  }
+
+  Future<DateTime> _showDatePicker() async {
+    return await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1994, 02, 13),
+      lastDate: DateTime(2100, 5, 16),
+      helpText: "",
+      cancelText: "아닌뒈",
+      confirmText: "꾸래!",
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: kDatePickerThemeData,
+          child: child,
+        );
+      },
+    );
+  }
+
+  Future<TimeOfDay> _showTimePicker() async {
+    return await showTimePicker(
+      context: context,
+      confirmText: "꾸래!",
+      cancelText: "아닌뒈",
+      helpText: "",
+      initialTime: TimeOfDay.now(),
+      builder: (BuildContext context, Widget child) {
+        return TimePickerTheme(
+          data: kTimePickerThemeData,
+          child: Theme(
+            data: ThemeData.light().copyWith(
+              textTheme: TextTheme(
+                button: TextStyle(
+                  fontFamily: 'GamjaFlower',
+                ),
+              ),
+              colorScheme: ColorScheme.light(
+                primary: kAppBarIconColor,
+                onPrimary: Colors.white,
+                surface: kAppBackgroundColor,
+              ),
+            ),
+            child: child,
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -76,46 +124,58 @@ class _TaskRegisterState extends State<TaskRegister> {
             ),
             DateTimePickerRow(
               dateStr: makeDateStr(_startDate),
-              onDatePressed: () {
-                DatePicker.showDatePicker(
-                  context,
-                  theme: DatePickerTheme(
-                    containerHeight: 210.0,
-                  ),
-                  showTitleActions: true,
-                  minTime: DateTime(2000, 1, 1),
-                  maxTime: DateTime(2022, 12, 31),
-                  onConfirm: (date) {
-                    print('confirm $date');
-                    setState(() {
-                      _startDate = date;
-                      _dateStr = makeDateStr(date);
-                    });
-                    print(_dateStr);
-                  },
-                  currentTime: DateTime.now(),
-                  locale: LocaleType.ko,
-                );
+              onDatePressed: () async {
+                DateTime date = await _showDatePicker();
+                setState(() {
+                  if (date != null) {
+                    _startDate = date;
+                  }
+                });
+//                DatePicker.showDatePicker(
+//                  context,
+//                  theme: DatePickerTheme(
+//                    containerHeight: 210.0,
+//                  ),
+//                  showTitleActions: true,
+//                  minTime: DateTime(2000, 1, 1),
+//                  maxTime: DateTime(2022, 12, 31),
+//                  onConfirm: (date) {
+//                    print('confirm $date');
+//                    setState(() {
+//                      _startDate = date;
+//                      _dateStr = makeDateStr(date);
+//                    });
+//                    print(_dateStr);
+//                  },
+//                  currentTime: DateTime.now(),
+//                  locale: LocaleType.ko,
+//                );
               },
               timeStr: makeTimeStr(_startTime),
-              onTimePressed: () {
-                DatePicker.showTimePicker(
-                  context,
-                  theme: DatePickerTheme(
-                    containerHeight: 210.0,
-                  ),
-                  showTitleActions: true,
-                  showSecondsColumn: false,
-                  onConfirm: (time) {
-                    print('confirm $time');
-                    setState(() {
-                      _startTime = time;
-                      _timeStr = makeTimeStr(time);
-                    });
-                  },
-                  currentTime: DateTime.now(),
-                  locale: LocaleType.ko,
-                );
+              onTimePressed: () async {
+                TimeOfDay time = await _showTimePicker();
+                setState(() {
+                  if (time != null) {
+                    _startTime = time;
+                  }
+                });
+//                DatePicker.showTimePicker(
+//                  context,
+//                  theme: DatePickerTheme(
+//                    containerHeight: 210.0,
+//                  ),
+//                  showTitleActions: true,
+//                  showSecondsColumn: false,
+//                  onConfirm: (time) {
+//                    print('confirm $time');
+//                    setState(() {
+//                      _startTime = time;
+//                      _timeStr = makeTimeStr(time);
+//                    });
+//                  },
+//                  currentTime: DateTime.now(),
+//                  locale: LocaleType.ko,
+//                );
               },
               tail: "시작",
             ),
@@ -125,21 +185,7 @@ class _TaskRegisterState extends State<TaskRegister> {
             DateTimePickerRow(
               dateStr: makeDateStr(_endDate),
               onDatePressed: () async {
-                DateTime date = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1994, 02, 13),
-                  lastDate: DateTime(2100, 5, 16),
-                  helpText: "",
-                  cancelText: "아닌뒈",
-                  confirmText: "꾸래!",
-                  builder: (BuildContext context, Widget child) {
-                    return Theme(
-                      data: kDatePickerThemeData,
-                      child: child,
-                    );
-                  },
-                );
+                DateTime date = await _showDatePicker();
                 setState(() {
                   if (date != null) {
                     _endDate = date;
@@ -165,22 +211,12 @@ class _TaskRegisterState extends State<TaskRegister> {
               },
               timeStr: makeTimeStr(_endTime),
               onTimePressed: () async {
-                await showTimePicker(
-                  context: context,
-                  confirmText: "꾸래!",
-                  cancelText: "아닌뒈",
-                  initialTime: TimeOfDay.now(),
-                  builder: (BuildContext context, Widget child) {
-                    return Theme(
-                      data: kTimePickerThemeData,
-                      child: child,
-                    );
-//                    return Directionality(
-//                      textDirection: TextDirection.rtl,
-//                      child: child,
-//                    );
-                  },
-                );
+                TimeOfDay time = await _showTimePicker();
+                setState(() {
+                  if (time != null) {
+                    _endTime = time;
+                  }
+                });
 //                DatePicker.showTimePicker(
 //                  context,
 //                  theme: DatePickerTheme(
@@ -211,7 +247,6 @@ class _TaskRegisterState extends State<TaskRegister> {
                     _startDate.day,
                     _startTime.hour,
                     _startTime.minute,
-                    _startTime.second,
                   );
 
                   print('end $_endDate $_endTime');
@@ -221,7 +256,6 @@ class _TaskRegisterState extends State<TaskRegister> {
                     _endDate.day,
                     _endTime.hour,
                     _endTime.minute,
-                    _endTime.second,
                   );
 
                   print('content $_content');

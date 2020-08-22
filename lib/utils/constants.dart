@@ -15,36 +15,36 @@ const kNewTaskButtonColor = Color(0xffffffff);
 const kNewTaskETCColor = Color(0xff96DF67);
 const kETCColor = Color(0xffE0E0E0);
 
-ThemeData kTimePickerThemeData = ThemeData.light().copyWith(
-  dialogTheme: DialogTheme(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(20),
+TimePickerThemeData kTimePickerThemeData = TimePickerThemeData(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(
+      20.0,
     ),
   ),
-  textTheme: TextTheme(
-    headline4: TextStyle(
-      fontFamily: 'GamjaFlower',
-    ),
-    subtitle2: TextStyle(
-      fontFamily: 'GamjaFlower',
-    ),
-    caption: TextStyle(
-      fontFamily: 'GamjaFlower',
-    ),
-    button: TextStyle(
-      fontFamily: 'GamjaFlower',
-    ),
-    bodyText2: TextStyle(
-      fontFamily: 'GamjaFlower',
-    ),
+  hourMinuteColor: Colors.white,
+  hourMinuteTextColor:
+      MaterialStateColor.resolveWith((Set<MaterialState> states) {
+    return states.contains(MaterialState.selected)
+        ? kNewTaskRegisterButtonColor
+        : Colors.black;
+  }),
+  hourMinuteTextStyle: TextStyle(
+    fontFamily: 'GamjaFlower',
+    fontSize: 50,
   ),
-  colorScheme: ColorScheme.light(
-    primary: kAppBarIconColor,
-    onPrimary: Colors.white,
-    surface: kAppBackgroundColor,
-    onSurface: Colors.black,
+  dayPeriodTextStyle: TextStyle(
+    fontFamily: 'GamjaFlower',
   ),
-  dialogBackgroundColor: kAppBackgroundColor,
+  dayPeriodTextColor:
+      MaterialStateColor.resolveWith((Set<MaterialState> states) {
+    return states.contains(MaterialState.selected)
+        ? kNewTaskRegisterButtonColor
+        : kETCColor;
+  }),
+  dayPeriodBorderSide: BorderSide.none,
+  dialBackgroundColor: Colors.white,
+  dialHandColor: kNewTaskRegisterButtonColor,
+  entryModeIconColor: kNewTaskButtonClockIconColor,
 );
 
 ThemeData kDatePickerThemeData = ThemeData.light().copyWith(

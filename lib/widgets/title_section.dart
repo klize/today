@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:today/utils/constants.dart';
@@ -36,15 +37,26 @@ class _TitleSectionState extends State<TitleSection> {
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  "선화의 하루",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
+                child: TypewriterAnimatedTextKit(
+                  totalRepeatCount: 1,
+                  repeatForever: true,
+                  speed: Duration(seconds: 1),
+                  text: ['선화의 하루'],
+                  textStyle: TextStyle(
                     fontSize: 40,
                     fontFamily: "GamjaFlower",
                     color: kScreenTitleColor,
                   ),
                 ),
+//                Text(
+//                  "선화의 하루",
+//                  textAlign: TextAlign.start,
+//                  style: TextStyle(
+//                    fontSize: 40,
+//                    fontFamily: "GamjaFlower",
+//                    color: kScreenTitleColor,
+//                  ),
+//                ),
               ),
             ),
           )
