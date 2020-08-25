@@ -20,7 +20,7 @@ class TodayScreen extends StatelessWidget {
       appBar: AppBar(
         leading: Icon(
           Icons.list,
-          color: Color(0xff475E6C),
+          color: kAppBarIconColor,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -28,13 +28,13 @@ class TodayScreen extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.calendar_today,
-              color: Color(0xff475E6C),
+              color: kAppBarIconColor,
             ),
             onPressed: () {},
           )
         ],
       ),
-      backgroundColor: Color(0xffEDEAD7),
+      backgroundColor: kAppBackgroundColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -76,7 +76,7 @@ class TodayScreen extends StatelessWidget {
             },
           );
         },
-        backgroundColor: Color(0xff475E6C),
+        backgroundColor: kAppBarIconColor,
         child: Icon(
           Icons.add,
           color: kAppBackgroundColor,

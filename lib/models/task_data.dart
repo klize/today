@@ -10,7 +10,7 @@ class TaskData with ChangeNotifier {
   TaskData(this._items, {this.helper}) {
     if (this.helper != null) {
       print("helper $helper");
-      loadData();
+      searchData(DateTime.now());
     }
   }
 
@@ -20,6 +20,13 @@ class TaskData with ChangeNotifier {
   void addTask(Task task) {
     helper?.insertTask(task);
     _items.add(task);
+    notifyListeners();
+  }
+
+  void delTask(int index) {
+    Task task = _items[index];
+    helper?.deleteTask(task.id);
+    _items.removeAt(index);
     notifyListeners();
   }
 

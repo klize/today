@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="today"
+        android:label="선화의 하루"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
