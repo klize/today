@@ -23,6 +23,13 @@ class TaskData with ChangeNotifier {
     notifyListeners();
   }
 
+  void delTask(int index) {
+    Task task = _items[index];
+    helper?.deleteTask(task.id);
+    _items.removeAt(index);
+    notifyListeners();
+  }
+
   void toggleDone(Task task) {
     //fixme: Just toggle `isDone` column, not the whole task;
     Task tempTask = Task(

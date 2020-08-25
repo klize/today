@@ -5,6 +5,7 @@ import 'package:today/components/datetime_picker_row.dart';
 import 'package:today/components/picker_button.dart';
 import 'package:today/models/task.dart';
 import 'package:today/models/task_data.dart';
+import 'package:today/models/task_input.dart';
 import 'package:today/utils/constants.dart';
 
 class TaskRegister extends StatefulWidget {
@@ -17,9 +18,6 @@ class _TaskRegisterState extends State<TaskRegister> {
   TimeOfDay _startTime;
   DateTime _endDate;
   TimeOfDay _endTime;
-
-  String _dateStr = "날짜";
-  String _timeStr = "시간";
 
   String _content;
 
@@ -39,6 +37,35 @@ class _TaskRegisterState extends State<TaskRegister> {
     }
 
     return _str;
+  }
+
+  Future<void> _showInvalidInputDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Icon(
+            Icons.help,
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('입력이 이상한뒈'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('다시 해보께'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<DateTime> _showDatePicker() async {
@@ -241,33 +268,28 @@ class _TaskRegisterState extends State<TaskRegister> {
               child: RaisedButton(
                 onPressed: () {
                   print('start $_startDate $_startTime');
-                  DateTime start = DateTime(
-                    _startDate.year,
-                    _startDate.month,
-                    _startDate.day,
-                    _startTime.hour,
-                    _startTime.minute,
-                  );
-
-                  print('end $_endDate $_endTime');
-                  DateTime end = DateTime(
-                    _endDate.year,
-                    _endDate.month,
-                    _endDate.day,
-                    _endTime.hour,
-                    _endTime.minute,
-                  );
-
                   print('content $_content');
-                  final Task newTask = Task(
-                    content: _content,
-                    start: start,
-                    end: end,
-                  );
-                  print(newTask);
-                  Provider.of<TaskData>(context, listen: false)
-                      .addTask(newTask);
-                  Navigator.pop(context);
+                  try {
+                    final TaskInput input = TaskInput(
+                      content: _content,
+                      startDate: _startDate,
+                      startTime: _startTime,
+                      endDate: _endDate,
+                      endTime: _endTime,
+                    );
+
+                    final Task newTask = Task(
+                      content: input.content,
+                      start: input.start,
+                      end: input.end,
+                    );
+                    print(newTask);
+                    Provider.of<TaskData>(context, listen: false)
+                        .addTask(newTask);
+                    Navigator.pop(context);
+                  } on InvalidInputException {
+                    _showInvalidInputDialog();
+                  }
                 },
                 color: kNewTaskRegisterButtonColor,
                 shape: RoundedRectangleBorder(
